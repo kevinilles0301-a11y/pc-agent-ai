@@ -11,8 +11,9 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 
 from .agent import ask_gemini, list_downloads, open_program, request_shutdown
+from .agent_loop import run_agent
 
-app = FastAPI(title="PC Agent AI", version="0.2.0")
+app = FastAPI(title="PC Agent AI", version="0.3.0")
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["http://localhost:5173", "http://127.0.0.1:5173"],
@@ -27,6 +28,10 @@ class ChatRequest(BaseModel):
     history: list[dict[str, str]] = Field(default_factory=list)
 
 
+class AgentRequest(BaseModel):
+    goal: str = Field(min_length=1, max_length=8000)
+
+
 class ActionRequest(BaseModel):
     action: Literal["open_program", "list_downloads", "screenshot", "shutdown"]
     argument: str = ""
@@ -35,13 +40,21 @@ class ActionRequest(BaseModel):
 
 @app.get("/api/health")
 def health() -> dict[str, str]:
-    return {"status": "ok"}
+    return {"status": "ok", "version": "0.3.0"}
 
 
 @app.post("/api/chat")
 def chat(request: ChatRequest) -> dict[str, str]:
     try:
         return {"text": ask_gemini(request.message, request.history)}
+    except Exception as exc:
+        raise HTTPException(status_code=502, detail=str(exc)) from exc
+
+
+@app.post("/api/agent/run")
+def agent_run(request: AgentRequest) -> dict:
+    try:
+        return run_agent(request.goal)
     except Exception as exc:
         raise HTTPException(status_code=502, detail=str(exc)) from exc
 
