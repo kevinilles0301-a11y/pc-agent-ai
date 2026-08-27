@@ -1,8 +1,9 @@
 {
   "name": "pc-agent-ai",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
-  "description": "Modern ChatGPT-style UI for a Windows PC AI agent",
+  "description": "Modern ChatGPT-style Windows PC AI agent UI",
+  "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -13,7 +14,8 @@
     "vite": "latest",
     "typescript": "latest",
     "react": "latest",
-    "react-dom": "latest"
-  },
-  "devDependencies": {}
+    "react-dom": "latest",
+    "@types/react": "latest",
+    "@types/react-dom": "latest"
+  }
 }
