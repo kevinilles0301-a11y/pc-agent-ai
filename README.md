@@ -11,8 +11,6 @@ Moderner Windows-PC-Agent mit ChatGPT-ähnlicher Oberfläche, Gemini als KI-Brai
 - ⏻ Shutdown als geschützte Abschlussaktion mit ausdrücklicher Bestätigung
 - 🔐 API-Key wird nur lokal über `.env` bzw. `GEMINI_API_KEY` geladen
 
-Google empfiehlt aktuell das neue GenAI-SDK für Gemini-Anwendungen; stabile Gemini-Modelle umfassen u. a. Gemini 2.5 Flash. citehttps://ai.google.dev/gemini-api/docs/get-startedhttps://ai.google.dev/gemini-api/docs/models
-
 ## Start unter Windows
 
 ### 1. Gemini-Key einrichten
